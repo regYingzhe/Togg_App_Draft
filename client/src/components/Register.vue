@@ -37,7 +37,7 @@ export default {
     },
     routePath: function() {
       console.log("inside routePath")
-      this.$router.push("Dashboard");
+      this.$router.push("RoomDashboard");
       // this.$router.go({ path: this.$router.path });
     }
   }

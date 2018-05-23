@@ -5,7 +5,9 @@ import Register from '@/components/Register'
 import Login from "@/components/Login"
 import SignOut from "@/components/SignOut"
 import Form from "@/components/Form"
-import Dashboard from "@/components/Dashboard"
+import RoomDashboard from "@/components/RoomDashboard"
+import ViewRoom from "@/components/ViewRoom"
+import EditRoom from "@/components/EditRoom"
 import firebase from "firebase"
 
 Vue.use(Router)
@@ -46,10 +48,26 @@ var router = new Router({
     },
     {
       path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard,
+      name: 'RoomDashboard',
+      component: RoomDashboard,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: '/dashboard/:room_id',
+      name: 'view-room',
+      component: ViewRoom,
+      meta: {
+        requiredAuth: true
+      }
+    },
+    {
+      path: '/dashboard/edit/:room_id',
+      name: 'edit-room',
+      component: EditRoom,
+      meta: {
+        requiredAuth: true
       }
     }
   ]

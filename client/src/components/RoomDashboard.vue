@@ -1,9 +1,18 @@
 <template>
-  <div class="dashboard">
+  <div class="rooms-dashboard">
     <h1>{{ msg }}</h1>
-    <ul class="collection with-header">
-      <li class="collection-header" v-for="room in sortedRooms" :key="rooms.id">
-        <h6>Room#: {{room.roomNum}}</h6>
+    <ul class="collection">
+      <li class="collection-item avatar" v-for="room in sortedRooms" :key="room.id">
+        <i class="material-icons circle">domain</i>
+        <span>Room#: {{room.roomNum}}</span>
+        <p>careTaker: {{room.careTaker}}<br>
+          resident: {{room.resident}}
+        </p>
+        <a class="secondary-content">
+          <router-link :to="{ name: 'view-room', params: {room_id: room.roomNum} }">
+            <i class="material-icons">send</i>
+          </router-link>
+        </a>
       </li>
     </ul>
   </div>
@@ -14,7 +23,7 @@ import db from "@/services/firebaseInit";
 const settings = {timestampsInSnapshots: true}
 db.settings(settings);
 export default {
-  name: 'Dashboard',
+  name: 'roomDashboard',
   data () {
     return {
       msg: 'Welcome to WonderLand Center',
@@ -27,7 +36,9 @@ export default {
       querySnapshot.forEach(doc => {
         const room = {
           'id': doc.id,
-          'roomNum': doc.data().roomNum
+          'roomNum': doc.data().roomNum,
+          'careTaker': doc.data().careTaker,
+          'resident': doc.data().resident
         }
         this.rooms.push(room);
       })
