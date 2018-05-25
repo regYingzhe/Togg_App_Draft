@@ -19,7 +19,8 @@ export default {
   data: function() {
     return {
       email: "example@gmail.com",
-      password: "*********"
+      password: "*********",
+      uid: null
     }
   },
   created: function() {
@@ -32,12 +33,15 @@ export default {
         password: this.password
       }
       const response = await AuthenticationService.register(emailAndPassword);
+      this.uid = response.data.message
+
       this.routePath()
-      console.log("response is ", response)
     },
     routePath: function() {
       console.log("inside routePath")
-      this.$router.push("RoomDashboard");
+      var userID = this.uid;
+      console.log("user id is ", userID)
+      this.$router.push({ name: 'Form', params: {userID}})
       // this.$router.go({ path: this.$router.path });
     }
   }

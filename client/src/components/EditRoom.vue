@@ -5,7 +5,7 @@
     <form @submit.prevent="updateRoom" class="col s12">
       <div class="row">
         <div class="input-field col s12">
-          <input id="Room#"  type="text" v-model="roomNum" required>
+          <input disabled id="Room#"  type="text" v-model="roomNum" required>
           <label class="active" for="Room#">Room#</label>
         </div>
       </div>

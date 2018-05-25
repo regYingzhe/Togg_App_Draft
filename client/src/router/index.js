@@ -8,6 +8,10 @@ import Form from "@/components/Form"
 import RoomDashboard from "@/components/RoomDashboard"
 import ViewRoom from "@/components/ViewRoom"
 import EditRoom from "@/components/EditRoom"
+import CareManagerForm from "@/components/CareManagerForm"
+import ViewEmployee from '@/components/ViewEmployee'
+import NewEmployee from '@/components/NewEmployee'
+import EditEmployee from '@/components/EditEmployee'
 import firebase from "firebase"
 
 Vue.use(Router)
@@ -42,9 +46,14 @@ var router = new Router({
       component: SignOut
     },
     {
-      path: '/form',
+      path: '/form/:uid',
       name: 'Form',
       component: Form
+    },
+    {
+      path: '/form/:uid/manager',
+      name: 'ManagerForm',
+      component: CareManagerForm
     },
     {
       path: '/dashboard',
@@ -69,6 +78,21 @@ var router = new Router({
       meta: {
         requiredAuth: true
       }
+    },
+    {
+      path: '/new',
+      name: 'new-employee',
+      component: NewEmployee
+    },
+    {
+      path: '/:employee_id',
+      name: 'view-employee',
+      component: ViewEmployee
+    },
+    {
+      path: '/edit/:employee_id',
+      name: 'edit-employee',
+      component: EditEmployee
     }
   ]
 })
