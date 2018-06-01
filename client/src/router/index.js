@@ -9,9 +9,10 @@ import RoomDashboard from "@/components/RoomDashboard"
 import ViewRoom from "@/components/ViewRoom"
 import EditRoom from "@/components/EditRoom"
 import CareManagerForm from "@/components/CareManagerForm"
-import ViewEmployee from '@/components/ViewEmployee'
-import NewEmployee from '@/components/NewEmployee'
-import EditEmployee from '@/components/EditEmployee'
+import ViewCaregiver from '@/components/ViewCaregiver'
+import NewCaregiver from '@/components/NewCaregiver'
+import EditCaregiver from '@/components/EditCaregiver'
+import Caregivers from '@/components/Caregivers'
 import firebase from "firebase"
 
 Vue.use(Router)
@@ -80,19 +81,24 @@ var router = new Router({
       }
     },
     {
-      path: '/new',
-      name: 'new-employee',
-      component: NewEmployee
-    },
-    {
-      path: '/:employee_id',
-      name: 'view-employee',
-      component: ViewEmployee
+      path: '/new-caregiver',
+      name: 'new-caregiver',
+      component: NewCaregiver
     },
     {
       path: '/edit/:employee_id',
-      name: 'edit-employee',
-      component: EditEmployee
+      name: 'edit-caregiver',
+      component: EditCaregiver
+    },
+    {
+      path: '/caregivers',
+      name: 'caregivers',
+      component: Caregivers
+    },
+    {
+      path: '/caregivers/:employee_id',
+      name: 'view-caregiver',
+      component: ViewCaregiver
     }
   ]
 })
