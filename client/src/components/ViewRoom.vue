@@ -9,9 +9,7 @@
     <router-link :to="{name: 'edit-room', params: {room_id: roomNum}}" class="btn grey">
       Edit
     </router-link>
-    <div class="fixed-action-btn">
 
-    </div>
   </div>
 </template>
 
@@ -23,7 +21,8 @@
       return {
         roomNum: null,
         careTaker: null,
-        resident: null
+        resident: null,
+        pageNumber: 0
       }
     },
     beforeRouteEnter (to, from, next) {
