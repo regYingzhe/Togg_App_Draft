@@ -1,6 +1,21 @@
 <template>
   <div class="rooms-dashboard">
     <h1>{{ msg }}</h1>
+    <div class="">
+      <a class="waves-effect waves-light btn #2196f3 blue" v-for="name in caregivers" style="margin:15px">
+        {{name}}
+      </a>
+      <p>
+        <label>
+          <input name="group1" type="radio" />
+          <span>Yellow</span>
+        </label>
+      </p>
+    </div>
+
+    <a class="waves-effect waves-light btn red" style="margin:15px" >
+      Assign Care Givers
+    </a>
     <ul class="collection">
       <li class="collection-item avatar" v-for="room in paginatedData" :key="room.id">
         <i class="material-icons circle">domain</i>
@@ -13,6 +28,12 @@
             <i class="material-icons">send</i>
           </router-link>
         </a>
+        <p>
+          <label>
+            <input type="checkbox" />
+            <span>Assign</span>
+          </label>
+        </p>
       </li>
     </ul>
     <a class="waves-effect waves-light btn"
@@ -34,18 +55,15 @@ export default {
     return {
       msg: 'Welcome to WonderLand Center',
       rooms: [],
-      pageNumber: 0
+      pageNumber: 0,
+      caregivers: []
     }
   },
   props: {
-    listData: {
-      type: Array,
-      required: true
-    },
     size: {
       type: Number,
       required: false,
-      default: 2
+      default: 5
     }
   },
   methods: {
@@ -54,9 +72,16 @@ export default {
     },
     prevPage() {
       this.pageNumber--;
-    }
+    },
   },
   created() {
+    db.collection('caregivers').get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          var name = doc.data().first_name + " " + doc.data().last_name;
+          this.caregivers.push(name)
+        })
+    });
+    console.log("caregivers are ", this.caregivers);
     db.collection('room').get().then
     (querySnapshot => {
       querySnapshot.forEach(doc => {
@@ -69,13 +94,14 @@ export default {
         this.rooms.push(room);
       })
     })
+
     console.log("rooms data are ", this.rooms);
-    // this.sortedRooms();
   },
   computed: {
-    sortedRooms: function() {
+    sortedRooms() {
+      console.log("Inside sorted Rooms")
       return this.rooms.sort(function(room1, room2) {
-        return parseInt(room1.roomNum) - parseInt(room2.roomNum)
+        return parseInt(room1.roomNum) - parseInt(room2.roomNum);
       })
     },
     pageCount() {
@@ -84,6 +110,9 @@ export default {
       return Math.floor(l/s);
     },
     paginatedData() {
+      this.rooms.sort(function(room1, room2) {
+        return parseInt(room1.roomNum) - parseInt(room2.roomNum);
+      })
       console.log("inside paginatedData")
       const start = this.pageNumber * this.size;
       const end = start + this.size;
