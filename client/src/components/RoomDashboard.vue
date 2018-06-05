@@ -1,14 +1,14 @@
 <template>
   <div class="rooms-dashboard">
     <h1>{{ msg }}</h1>
-    <div class="">
-      <a class="waves-effect waves-light btn #2196f3 blue" v-for="name in caregivers" style="margin:15px">
+    <div v-for="name in caregivers">
+      <a class="waves-effect waves-light btn #2196f3 blue"  style="margin:15px">
         {{name}}
       </a>
       <p>
         <label>
-          <input name="group1" type="radio" />
-          <span>Yellow</span>
+          <input type="checkbox" />
+          <span>Assignment for this Caregiver</span>
         </label>
       </p>
     </div>
